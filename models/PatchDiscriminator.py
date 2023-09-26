@@ -5,8 +5,8 @@ class DiscConvBlock(nn.Module):
     def __init__(self, channels_in, channels_out, stride=2, is_first=False):
         super(DiscConvBlock, self).__init__()
         block = (
-            nn.Conv2d(channels_in, channels_out, kernel_size=4, stride=stride, padding=1),
-            nn.InstanceNorm2d(channels_out),
+            nn.Conv3d(channels_in, channels_out, kernel_size=4, stride=stride, padding=1),
+            nn.InstanceNorm3d(channels_out),
             nn.LeakyReLU(0.2, True),
         )
         if is_first: # remove the second element
@@ -28,6 +28,6 @@ def get_model():
         DiscConvBlock(128, 256),
         DiscConvBlock(256, 512, stride=1),
         # last block uses 1 channel conv
-        nn.Conv2d(512, 1, kernel_size=4, stride=1, padding=1)
+        nn.Conv3d(512, 1, kernel_size=4, stride=1, padding=1)
     )
     return model
